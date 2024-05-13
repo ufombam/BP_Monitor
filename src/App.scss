@@ -1,0 +1,15 @@
+.App {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-width: 100%;
+    //border: 1px solid red;
+    background: linear-gradient(to bottom right, white, #e0b0ff);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+  

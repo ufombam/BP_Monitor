@@ -1,0 +1,129 @@
+.fm1-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-wrap: wrap;
+  flex: 1;
+}
+.fm1-body .fm1-main {
+  box-sizing: border-box;
+  padding: 0px;
+  background: linear-gradient(to top right, white 0%, #f5e0ff 25%, #f1f3f6 50%, #fff2e6 100%);
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  border-radius: 50px;
+  margin-top: 2%;
+  margin-bottom: 5%;
+  box-shadow: -2px 1px 4px rgba(0, 0, 0, 0.3);
+}
+.fm1-body .fm1-main .fm1-right {
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+  width: 40vw;
+}
+.fm1-body .fm1-main .fm1-left {
+  padding-left: 5%;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  width: 60vw;
+  height: 100%;
+}
+.fm1-body .fm1-main .fm1-left_header {
+  position: relative;
+  left: -45px;
+}
+.fm1-body .fm1-main .fm1-left_header img {
+  height: 100px;
+}
+.fm1-body .fm1-main .fm1-left h1 {
+  font-size: 4em;
+  line-height: 0.5em;
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+.fm1-body .fm1-main .fm1-left h1 span {
+  color: #a248cc;
+}
+.fm1-body .fm1-main .fm1-left p {
+  color: #6e6e75;
+  font-size: 1.1rem;
+}
+
+/* Styles for screens smaller than 768 pixels (phones) */
+@media (max-width: 768px) {
+  .fm1-body {
+    flex-direction: column;
+  }
+  .fm1-body .fm1-main {
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    border-radius: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .fm1-body .fm1-main .fm1-right {
+    width: auto;
+  }
+  .fm1-body .fm1-main .fm1-right h1 {
+    font-size: 1.5rem;
+  }
+  .fm1-body .fm1-main .fm1-left {
+    padding-left: 5%;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    width: auto;
+    height: 100%;
+    text-wrap: wrap;
+  }
+  .fm1-body .fm1-main .fm1-left_header {
+    position: relative;
+    left: 0%;
+  }
+  .fm1-body .fm1-main .fm1-left_header img {
+    height: 80px;
+  }
+  .fm1-body .fm1-main .fm1-left h1 {
+    font-size: 2.5rem;
+    line-height: 1.2em;
+    margin: 0;
+  }
+}
+/* Styles for screens between 768 and 991 pixels (tablets) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .fm1-body .fm1-main .fm1-right {
+    width: inherit;
+  }
+  .fm1-body .fm1-main .fm1-left_header {
+    position: relative;
+    left: -8%;
+  }
+  .fm1-body .fm1-main .fm1-left_header img {
+    height: 80px;
+  }
+  .fm1-body .fm1-main .fm1-left h1 {
+    font-size: 2rem;
+    line-height: 1em;
+  }
+}
+/* Styles for screens larger than 992 pixels (desktops) */
+@media (min-width: 992px) {
+  .fm1-body .fm1-main .fm1-right {
+    width: inherit;
+  }
+  .fm1-body .fm1-main .fm1-left_header {
+    position: relative;
+    left: -8%;
+  }
+  .fm1-body .fm1-main .fm1-left_header img {
+    height: 80px;
+  }
+  .fm1-body .fm1-main .fm1-left h1 {
+    font-size: 3rem;
+    line-height: 1em;
+  }
+}/*# sourceMappingURL=Form1.css.map */
