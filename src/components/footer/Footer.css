@@ -35,7 +35,9 @@
   flex-direction: row;
   align-items: center;
   text-align: center;
+  align-self: flex-end;
   justify-content: space-between;
+  margin-top: auto;
   width: 100%;
   height: -moz-fit-content;
   height: fit-content;

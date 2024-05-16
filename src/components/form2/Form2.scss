@@ -4,6 +4,10 @@
     align-items: center;
     width: 100%;
     height: fit-content;
+    flex: 1;
+    p {
+        font-size: 14px;
+    }
     .fm2-main {
         margin-top: 2%;
         box-sizing: border-box;

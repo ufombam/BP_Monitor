@@ -1,7 +1,8 @@
 import React, { SyntheticEvent, useRef } from 'react';
 import { FormData } from '../../components/interfaces/interface';
 import './Form1.css';
-import { TextField, Autocomplete, Button, Box } from '@mui/material';
+import { TextField, Box } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { ArrowForwardIos } from '@mui/icons-material';
 import { CountryType } from '../../components/interfaces/interface';
 import Footer from '../footer/Footer';
@@ -12,12 +13,18 @@ const Form1: React.FC<{
     onNext: () => void; 
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
     formData: FormData; 
-    locationData: (countryData: CountryType | null) => void 
+    formState: boolean;
+    loading: boolean,
+    onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void; 
+    onSubmitClick: () => void; 
 }> = ({
     onNext,
     onChange,
     formData,
-    locationData
+    formState,
+    loading,
+    onSubmit,
+    onSubmitClick
 }) => {
     //const [value, setValue] = React.useState<CountryType | null>(null);
 
@@ -83,7 +90,7 @@ const Form1: React.FC<{
     const typeEffectEl = useRef(null);
     React.useEffect(() => {
         const typed = new Typed(typeEffectEl.current, {
-            strings: ['<h1>Unlock Your Potential</h1> <h1>with <span>AI-Powered</span></h1><h1> Insights!</h1><p>"Discover the Future of Assessments with AI. Empowerment Starts Here!"</p>'],
+            strings: ['<p>"The best way to understand your blood pressure is by checking it regularly."</p>'],
             typeSpeed: 10,
             showCursor: false,
             loop: false,
@@ -101,6 +108,7 @@ const Form1: React.FC<{
         <div className='fm1-main'>
             <div className='fm1-left'>
                 <div className="fm1-left_header"><img src={logo} alt="vester_logo" /></div>
+                <h1>Blood Pressure</h1> <h1><span>Calculator</span></h1><h1> Insights!</h1>
                 <div ref={typeEffectEl}>
                 </div>
             </div>
@@ -113,77 +121,58 @@ const Form1: React.FC<{
                     noValidate
                     autoComplete="off"
                     >
-                    <h1 style={{width: "100%"}}>Onboarding Form</h1>
+                    <h1 style={{width: "100%"}}>Enter your reading</h1>
                     <TextField
                         id="outlined-basic"
-                        label="Startup Name"
+                        label="Systolic mmHg"
                         variant="outlined"
                         onChange={onChange}
-                        name="name"
-                        value={formData.name}
-                        helperText={"Vester AI"}
+                        name="systolic"
+                        value={formData.systolic}
+                        helperText={"Example: 120"}
+                        type="number"
                         required
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Website"
+                        label="Diastolic mmHg"
                         variant="outlined"
-                        name="website"
+                        name="diastolic"
                         onChange={onChange}
-                        value={formData.website}
-                        helperText={"www.vesterai.com"}
+                        value={formData.diastolic}
+                        helperText={"Example: 80"}
+                        type="number"
+                        
                         required
                     />
-                    <Autocomplete
-                        value={formData.location}
-                        onChange={(event: SyntheticEvent<Element, Event>, value: CountryType | null) => {
-                            locationData(value)}}
-                        id="country-select-demo"
-                        sx={{ width: 300 }}
-                        options={countries}
-                        autoHighlight
-                        getOptionLabel={(option) => option.label}
-                        isOptionEqualToValue={(option, value) => {
-                            if (option.code === value.code) {
-                                return true
-                            }
-                            return true
+                    <LoadingButton
+                        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                            onSubmitClick();
+                            onNext();
+                            return onSubmit(event)
                         }}
-                        renderOption={(props, option) => (
-                            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                                <img
-                                    loading="lazy"
-                                    width="20"
-                                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                    alt=""
-                                />
-                            {option.label} ({option.code})
-                            </Box>
-                        )}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Location in Africa (registered)"
-                                name='location'
-                                inputProps={{
-                                    ...params.inputProps,
-                                    autoComplete: 'new-password', // disable autocomplete and autofill
-                                }}
-                                required
-                            />
-                        )}
-                    />
-                    <Button
-                        variant="contained"
-                        color="secondary"
                         endIcon={<ArrowForwardIos />}
-                        onClick={onNext}>
-                        NEXT
-                    </Button>
+                        loading={loading}
+                        loadingPosition="end"
+                        variant="contained" 
+                        disabled={formState ? true : false}
+                        color="secondary"
+                    >
+                        <span>GENERATE PLAN</span>
+                    </LoadingButton>
                 </Box>
             </div>
         </div>
+        <p>
+            <h4>
+                Check your blood pressure reading
+                Use this service to:
+            </h4>
+            <ul>
+                <li>check what your blood pressure reading means</li>
+                <li>get information about what to do next</li>
+            </ul>
+        </p>
         <Footer />
     </div>
     );

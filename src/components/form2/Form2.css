@@ -5,6 +5,10 @@
   width: 100%;
   height: -moz-fit-content;
   height: fit-content;
+  flex: 1;
+}
+.fm2-body p {
+  font-size: 14px;
 }
 .fm2-body .fm2-main {
   margin-top: 2%;
