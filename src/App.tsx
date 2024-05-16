@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FormData, CountryType, BloodPressure, Timetable } from './components/interfaces/interface';
-import { Dayjs } from 'dayjs';
+import { FormData, BloodPressure, Timetable } from './components/interfaces/interface';
 import Form1 from './components/form1/Form1';
 import Form2 from './components/form2/Form2';
 import './App.css';
@@ -11,8 +10,6 @@ const StartupForm: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [formNotComplete, setFormNotComplete] = useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [alert, setAlert] = useState<boolean>(false);
-  const [response, setResponse] = useState<string>('');
   const [bpRange, setBpRange] = useState<string>('');
   const [advice, setAdvice] = useState<string>('');
   const [formData, setFormData] = useState<FormData>({
@@ -23,14 +20,6 @@ const StartupForm: React.FC = () => {
   const [eatingTimetable, setEatingTimetable] = useState<string[]>([]);
   const [exerciseTimetable, setExerciseTimetable] = useState<Timetable[]>([]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setBloodPressure(prevState => ({
-      ...prevState,
-      [name]: parseInt(value)
-    }));
-  };
-
   const generateRecommendations = (bloodPressure: BloodPressure): { eating: string[], exercise: Timetable[] } => {
     let eatingRecommendations: string[] = [];
     let exerciseRecommendations: Timetable[] = [];
@@ -38,16 +27,19 @@ const StartupForm: React.FC = () => {
     // Determine blood pressure range
     if (bloodPressure.systolic <= 90 && bloodPressure.diastolic <= 60) {
       setBpRange('hypotension');
+      setAdvice('If the healthcare professional who took your blood pressure referred you to your Medical Practitioner follow their advice and attend the appointment.')
     } else if (bloodPressure.systolic <= 120 && bloodPressure.diastolic <= 80) {
       setBpRange('Healthy');
       setAdvice('Ensure you checkup regularly')
     } else if (bloodPressure.systolic <= 140 && bloodPressure.diastolic <= 90) {
       setBpRange('very high');
-      setAdvice('If the healthcare professional who took your blood pressure referred you to your GP follow their advice and attend the appointment.')
+      setAdvice('If the healthcare professional who took your blood pressure referred you to your Medical Practitioner follow their advice and attend the appointment.')
     } else if (bloodPressure.systolic <= 160 && bloodPressure.diastolic <= 100) {
-      setBpRange('Stage 2 Hypertension ');
+      setBpRange('Extremely high');
+      setAdvice('If the healthcare professional who took your blood pressure referred you to your Medical Practitioner follow their advice and attend the appointment.')
     } else {
-      setBpRange('ABNORMAL READING. SEEK URGENT CARE');
+      setBpRange('ABNORMAL READING');
+      setAdvice("Please re-check");
     }
     // Generate recommendations based on blood pressure range
     switch (bpRange) {
@@ -77,12 +69,16 @@ const StartupForm: React.FC = () => {
           /*...*/
         ];
         break;
-      case 'Hypotension':
-        eatingRecommendations = ['Add sodium intake', 'Increase potassium-rich foods', 'Moderate physical activity'];
+      case 'hypotension':
+        eatingRecommendations = ['Increase fluid intake throughout the day, including water, fruit juices, and sports drinks.', 'Consume salty foods to help raise blood pressure, such as Salted snacks like pretzels', 'Incorporate healthy sources of sodium into meals'];
         exerciseRecommendations = [
           { day: 'Monday', activity: 'Morning: Stretching' },
           { day: 'Tuesday', activity: 'Evening: Swimming' },
-          { day: 'Wednesday', activity: 'Afternoon: Pilates' } ]
+          { day: 'Wednesday', activity: 'Afternoon: Short walks' },
+          { day: 'Thursday', activity: 'Afternoon: leisurely bike rides' }, 
+          { day: 'Friday', activity: 'Morning: Stretching' }, 
+          { day: 'Saturday', activity: 'Afternoon: Gentle yoga or tai chi sessions' } 
+        ]
         break;
       default:
         // Handle default case
@@ -110,16 +106,11 @@ const StartupForm: React.FC = () => {
     setLoading(true);
 }
 
-  const handleAlertResponse = (res: string,  state: boolean): void => {
-    setAlert(true);
-    setResponse(res)
-  }
-
   useEffect(() => {
     checkFormData();
     handleGenerateTimetables();
     // eslint-disable-next-line
-  }, [formData, ]);
+  }, [formData]);
 
   const checkFormData = (): void => {
     if (formData.systolic &&
@@ -163,7 +154,6 @@ const StartupForm: React.FC = () => {
           systolic: "",
           diastolic: "",
         });
-        handleAlertResponse('notOkay',  true); //send 'notOkay' to demonstrate success - default ('ok')
       }, 4000);
     })
     .catch(error => {
@@ -174,7 +164,6 @@ const StartupForm: React.FC = () => {
           diastolic: "",
         });
         console.error('There was a problem with the POST request - Invalid endpoint');
-        handleAlertResponse('ok',  true); //send 'notOkay' to demonstrate success - default ('notOkay')
       }, 4000)
     });
   };
@@ -198,11 +187,7 @@ const StartupForm: React.FC = () => {
           bpRange={bpRange}
           advice={advice}
           bloodPressure={bloodPressure} 
-          formData={formData} 
           onBack={handleBack}
-          sendAlert={alert}
-          alertResponse={response}
-          closeAlert={handleAlertResponse}
         />
       )}
     </div>

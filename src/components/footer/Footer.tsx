@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import logo from '../../assets/logo/vester_ai.png';
+import logo from '../../assets/logo/heartsign.png';
 import { Stack, Typography } from '@mui/material';
 import { Twitter, Instagram, LinkedIn, Google, FacebookRounded } from '@mui/icons-material';
 
@@ -12,7 +12,7 @@ const Footer: React.FC<{}> = () => {
           <div className='footer_logo'>
             <img src={logo} height={"80px"} alt="vester-logo" />
           </div>
-          <div><p>Vester AI! AI meets assessment excellence. Elevate your journey with our intuitive platform, offering personalized insights and unparalleled accuracy.</p></div>
+          <div><p>"Love Your Heart: Keep it Strong, Keep it Healthy!"</p></div>
           <div className='footer_social_buttons'>
             <Typography>
               <FacebookRounded />
@@ -64,13 +64,13 @@ const Footer: React.FC<{}> = () => {
               <li>
                 <Stack direction={'row'}>
                   <span className="material-icons mauve">phone</span>
-                  <p>(91) 12345 45</p>
+                  <p>(+234) 913 777 2714 </p>
                 </Stack>
               </li>
               <li>
                 <Stack direction={'row'}>
                   <span className="material-icons mauve">face</span>
-                  <p>support@gmail.com</p>
+                  <p>powerlane22@gmail.com</p>
                 </Stack>
               </li>
             </ul>
