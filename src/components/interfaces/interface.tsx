@@ -1,13 +1,7 @@
-import { Dayjs } from 'dayjs';
 
 export interface FormData {
     systolic: string;
     diastolic: string;
-}
-
-export interface CountryType {
-    code: string;
-    label: string;
 }
 
 export interface BloodPressure {
